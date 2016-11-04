@@ -59,11 +59,6 @@ class Minc2File(Minc1File):
         self._dim_names = self._get_dimensions(self._image)
         dimensions = minc_part['dimensions']
         self._dims = [Hdf5Bunch(dimensions[s]) for s in self._dim_names]
-        # We don't currently support irregular spacing
-        # https://en.wikibooks.org/wiki/MINC/Reference/MINC2.0_File_Format_Reference#Dimension_variable_attributes
-        for dim in self._dims:
-            if dim.spacing != b'regular__':
-                raise ValueError('Irregular spacing not supported')
         self._spatial_dims = [name for name in self._dim_names
                               if name.endswith('space')]
         self._image_max = image['image-max']

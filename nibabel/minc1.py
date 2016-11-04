@@ -58,11 +58,6 @@ class Minc1File(object):
         # https://en.wikibooks.org/wiki/MINC/Reference/MINC1-programmers-guide#Image_dimensions
         self._dims = [self._mincfile.variables[s]
                       for s in self._dim_names]
-        # We don't currently support irregular spacing
-        # https://en.wikibooks.org/wiki/MINC/Reference/MINC1-programmers-guide#MINC_specific_convenience_functions
-        for dim in self._dims:
-            if dim.spacing != b'regular__':
-                raise ValueError('Irregular spacing not supported')
         self._spatial_dims = [name for name in self._dim_names
                               if name.endswith('space')]
         # the MINC standard appears to allow the following variables to
